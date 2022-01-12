@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Restaurant Assembly</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        #main-canvas {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 0;
+        }
+
+        .button-container {
+            position: absolute;
+            top: 0;
+            width: 10rem;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            overflow-y: scroll;
+            padding: 0.5rem;
+            z-index: 1;
+            margin: 0;
+            max-height: 100%;
+        }
+
+        .button-container button {
+            width: 100%;
+            border-radius: 0.25rem;
+            background-color: #fff;
+            border: 1px solid #000;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        #button-container-right {
+            right: 0!important;
+            width: 10rem !important;
+        }
+
+        #button-container {
+            left: 0!important;
+        }
+    </style>
+</head>
+
+<body>
+<canvas id="main-canvas"></canvas>
+<div class="button-container" id="button-container">
+</div>
+<div class="button-container button-container-right" id="button-container-right">
+</div>
+<script src="dist/bundle.js"></script>
+<script >
+
+        builder = new window.RestaurantAssembly(document.getElementById('main-canvas'), 'assets/models/restaurants.glb', 'assets/fonts/helvetiker_regular.typeface.json');
+        const buttonContainer = document.getElementById('button-container');
+        files = [
+            'two_chair_set_01.glb',
+            'four_chair_set_01.glb',
+            'six_chair_set_01.glb',
+            'eight_chair_set_01.glb',
+        ]
+        files.forEach(file => {
+            const button = document.createElement('button');
+            button.innerText = file.split('/').pop().replace('01.glb', '').replaceAll('_', ' ') || '';
+            button.style.textTransform = 'capitalize';
+            // if (!button.innerText.toLowerCase().endsWith('.glb')) return
+            button.addEventListener('click', () => {
+                builder.addMeshFromMouse('./assets/models/' + file);
+            });
+            buttonContainer.appendChild(button);
+        })
+
+
+        const buttonContainerRight = document.getElementById('button-container-right');
+
+        const uploadButton = document.createElement('button');
+        uploadButton.innerText = 'Upload JSON';
+        uploadButton.addEventListener('click', builder.uploadJson);
+        buttonContainerRight.appendChild(uploadButton);
+
+        const downloadButton = document.createElement('button');
+        downloadButton.innerText = 'Download JSON'
+        downloadButton.addEventListener('click', builder.downloadJson);
+        buttonContainerRight.appendChild(downloadButton);
+
+        const rotateButton = document.createElement('button');
+        rotateButton.innerText = 'Rotate Mode'
+        rotateButton.addEventListener('click', () => builder.setEditMode('rotate'));
+        buttonContainerRight.appendChild(rotateButton);
+
+        const translateButton = document.createElement('button');
+        translateButton.innerText = 'Movement Mode'
+        translateButton.addEventListener('click', () => builder.setEditMode('translate'));
+        buttonContainerRight.appendChild(translateButton);
+
+        const tableInputText = document.createElement('input');
+        tableInputText.style.fontSize = '1.25em';
+        tableInputText.type = 'text'
+        tableInputText.value = ''
+        tableInputText.placeholder = 'Type text here'
+        tableInputText.addEventListener('change', () => builder.setSelectedText(tableInputText.value));
+        buttonContainerRight.appendChild(tableInputText);
+
+</script>
+</body>
+
+</html>
