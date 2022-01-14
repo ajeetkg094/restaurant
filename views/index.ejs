@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <script type="text/javascript" src="/home/mihir/Downloads/assembly.json"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <title>Restaurant Assembly</title>
@@ -58,6 +57,9 @@
         #button-container {
             left: 0 !important;
         }
+        #upload_json{
+            display: none;
+        }
     </style>
 </head>
 
@@ -105,6 +107,7 @@
         const buttonContainerRight = document.getElementById('button-container-right');
 
         const uploadButton = document.createElement('button');
+        uploadButton.id = 'upload_json';
         uploadButton.innerText = 'Upload JSON';
         //console.log(json);
         uploadButton.addEventListener('click', builder.uploadJson);
@@ -132,6 +135,14 @@
         tableInputText.placeholder = 'Type text here'
         tableInputText.addEventListener('change', () => builder.setSelectedText(tableInputText.value));
         buttonContainerRight.appendChild(tableInputText);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            setTimeout(function(){
+                document.getElementById('upload_json').click()
+            }, 15000);
+
+        }, false);
 
     </script>
 </body>

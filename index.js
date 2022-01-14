@@ -14,10 +14,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.post('/',(req,res)=>{
+app.post('/:id',(req,res)=>{
   let data = JSON.stringify(req.body);
+  let id =  req.param("id");
+  if (id==undefined) {
+    id = '0';
+  } 
   console.log('inside from post method',req.body);
-  fs.writeFile('./public/test2.json', data, function (err) {
+  fs.writeFile(`./public/restaurant_${id}.json`, data, function (err) {
     if (err) {
       console.log('There has been an error saving your configuration data.');
       console.log(err.message);
@@ -27,31 +31,37 @@ app.post('/',(req,res)=>{
   res.send('post method called');
 });
 
-app.get('/json',(req,res)=>{
-
+app.get('/json/:id',(req,res)=>{
   var options = {
     root: path.join(__dirname + '/public')
-};
- 
-var fileName = 'test1.json';
-res.sendFile(fileName, options, function (err) {
-    if (err) {
-        next(err);
-    } else {
-        console.log('Sent:', fileName);
-    }
-});
+  };
+
+  let id =  req.param("id");
+  if (id==undefined) {
+    id = '0';
+  } 
+
+  var fileName = `restaurant_${id}.json`;
+  res.sendFile(fileName, options, function (err) {
+      if (err) {
+          console.log(err);
+
+      } else {
+          console.log('Sent:', fileName);
+      }
+  });
 });
 
-app.get('/', (req, res) => {
-  let json = require('/home/mihir/table-layout_1/public/assembly.json');
-  console.log(json, 'the json obj');
+app.get('/:id', (req, res) => {
+  let json = require('./public/assembly.json');
 
-  // console.log(blob);
-  let restaurant_id = req.query.id;
-  //console.log(restaurant_id);
+  let id =  req.param("id");
+  if (id==undefined) {
+    id = '0';
+  }
+  console.log('call for renstaurant:', id);
+    
   res.render('index', { json: json });
-  //res.sendFile('/home/mihir/table-layout_1/views/index.html');
 });
 
 app.listen(port, () => {
