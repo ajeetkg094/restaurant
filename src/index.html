@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThreeJS Starter</title>
+  </head>
+  <body>
+
+    <style type="text/css">
+      div#regModal .alert.alert-success.save, div#edit-sidebar .alert.alert-success, .contactSuccessBox .alert.alert-success, .alert.alert-success.Success {
+          padding: 10px 36px 10px 20px;
+          border: none;
+          min-width: 300px;
+          width: 100%;
+          max-width: 300px;
+          display: block;
+          background: #4fa049;
+          color: #fff;
+          position: fixed;
+          top: 6px;
+          right: 6px;
+          opacity: 0.9;
+          z-index: 99999999;
+          border-radius: 4px;
+      }
+
+      
+    </style>
+
+    <div class="alert alert-success Success" style="display: none;" id="success">
+      <strong>Data Saved!</strong>  
+    </div>
+
+    <div id="info">
+      "M" move |	"R" rotate |  "D" delete<br />
+		</div>
+    <!-- <script type="text/javascript" src="script.js"></script> -->
+
+    <button
+        id="two"
+      type="button"
+      style=" 
+        z-index: 12345;
+        position: absolute;
+        margin-left: 5%;
+        margin-top: 3%;
+      "
+      class="button"
+    >
+      Two Seats Table
+    </button>
+    <button
+    id="four"
+      type="button"
+      style="
+        z-index: 12345;
+        position: absolute;
+        margin-left: 5%;
+        margin-top: 8%;
+      "
+      class="button"
+    >
+      Four Seats Table
+    </button>
+    <button
+    id="six"
+      type="button"
+      style="
+        z-index: 12345;
+        position: absolute;
+        margin-left: 5%;
+        margin-top: 13%;
+      "
+      class="button"
+    >
+      Six Seats Table
+    </button>
+    <button
+    id="eight"
+      type="button"
+      style="
+        z-index: 12345;
+        position: absolute;
+        margin-left: 5%;
+        margin-top: 18%;
+      "
+      class="button"
+    >
+      Eight Seats Table
+    </button>
+    <input
+    id="text"
+    style="
+    z-index: 12345;
+    position: absolute;
+    height: 3%;
+    border-radius: 5px;
+    margin-left: 87%;
+    margin-top: 8%;
+  "/>
+    <button
+    id="save"
+    type="button"
+    style="
+      z-index: 12345;
+      position: absolute;
+      margin-left: 90%;
+      margin-top: 3%;
+    "
+    class="button"
+  >
+    Save
+  </button>
+
+
+    <canvas class="webgl"></canvas>
+  </body>
+</html>

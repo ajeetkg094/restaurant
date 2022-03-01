@@ -1,0 +1,1 @@
+const{merge:merge}=require("webpack-merge"),commonConfiguration=require("./webpack.common.js"),{CleanWebpackPlugin:CleanWebpackPlugin}=require("clean-webpack-plugin");module.exports=merge(commonConfiguration,{mode:"production",plugins:[new CleanWebpackPlugin]});
