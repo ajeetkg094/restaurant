@@ -229,19 +229,23 @@ function eightseats(x, z, r, tablenum) {
 
 function getTable() {
 	const urlParams = new URLSearchParams(window.location.search)
-	const searchget = urlParams.get('search')
+	const searchget =  window.atob(urlParams.get('search'))
 
 	if (!!searchget) {
-		axios.get(`http://34.236.249.40:5000/get/${searchget}`).then(({
-			data: data
-		}) => {
-			for (let i = 0; i < data.length; i++) 
+		if(!isNaN(searchget)){
+			axios.get(`http://34.236.249.40:5000/get/${searchget}`).then(({
+				data: data
+			}) => {
+				for (let i = 0; i < data.length; i++) 
 
-				"two seats" === data[i].name && twoseats(data[i].positionX, data[i].positionZ, data[i].rotation, data[i].tablenum), 
-				"four seats" === data[i].name && fourseats(data[i].positionX, data[i].positionZ, data[i].rotation, data[i].tablenum), 
-				"six seats" === data[i].name && sixseats(data[i].positionX, data[i].positionZ, data[i].rotation, data[i].tablenum), 
-				"eight seats" === data[i].name && eightseats(data[i].positionX, data[i].positionZ, data[i].rotation, data[i].tablenum)
-		});
+					"two seats" === data[i].name && twoseats(data[i].positionX, data[i].positionZ, data[i].rotation, data[i].tablenum), 
+					"four seats" === data[i].name && fourseats(data[i].positionX, data[i].positionZ, data[i].rotation, data[i].tablenum), 
+					"six seats" === data[i].name && sixseats(data[i].positionX, data[i].positionZ, data[i].rotation, data[i].tablenum), 
+					"eight seats" === data[i].name && eightseats(data[i].positionX, data[i].positionZ, data[i].rotation, data[i].tablenum)
+			});	
+		}else{
+			window.close();
+		}
 	}
 }
 
@@ -422,21 +426,26 @@ function tick() {
 }
 
 function postTables(array) {
-	const urlParams = new URLSearchParams(window.location.search)
-  	const search = urlParams.get('search')
-  	console.log("search" , search);
-  	if (!!search) {
-		axios.post(`http://34.236.249.40:5000/post/${search}`, {
-			table: array
-		}).then(({
-			data: data
-		}) => {
-			document.getElementById('success').style.display='block';
-			setTimeout(function () {
-		        document.getElementById('success').style.display='none';
-		    }, 5000);
 
-		}) 
+  	const urlParams = new URLSearchParams(window.location.search)
+	const search =  window.atob(urlParams.get('search'))
+
+
+  	if (!!search) {
+  		if(!isNaN(search)){
+
+			axios.post(`http://34.236.249.40:5000/post/${search}`, {
+				table: array
+			}).then(({
+				data: data
+			}) => {
+				document.getElementById('success').style.display='block';
+				setTimeout(function () {
+			        document.getElementById('success').style.display='none';
+			    }, 5000);
+
+			}) 
+		}
 	}
 }
 
